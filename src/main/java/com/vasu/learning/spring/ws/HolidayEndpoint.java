@@ -15,6 +15,8 @@ import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 
+import com.mycompany.hr.schemas.HolidayRequest;
+
 @Endpoint
 public class HolidayEndpoint {
 
@@ -43,13 +45,14 @@ public class HolidayEndpoint {
 	}
 
 	@PayloadRoot(namespace = NAMESPACE_URI, localPart = "HolidayRequest")
-	public void handleHolidayRequest(@RequestPayload Element holidayRequest) throws Exception {
-		Date startDate = parseDate(startDateExpression, holidayRequest);
-		Date endDate = parseDate(endDateExpression, holidayRequest);
-		String name = firstNameExpression.evaluateFirst(holidayRequest).getText() + " "
-				+ lastNameExpression.evaluateFirst(holidayRequest).getText();
+	public void handleHolidayRequest(@RequestPayload HolidayRequest holidayRequest) throws Exception {
+		//Date startDate = parseDate(startDateExpression, holidayRequest);
+		//Date endDate = parseDate(endDateExpression, holidayRequest);
+		//String name = firstNameExpression.evaluateFirst(holidayRequest).getText() + " "
+		//		+ lastNameExpression.evaluateFirst(holidayRequest).getText();
 
-		humanResourceService.bookHoliday(startDate, endDate, name);
+		//humanResourceService.bookHoliday(startDate, endDate, name);
+		System.out.println(holidayRequest.getEmployee().getNumber()+":"+holidayRequest.getEmployee().getFirstName()+" "+holidayRequest.getEmployee().getLastName());
 	}
 
 	private Date parseDate(XPathExpression<Element> expression, Element element) throws ParseException {
